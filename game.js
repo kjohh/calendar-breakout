@@ -63,6 +63,9 @@ function init() {
     // 獲取控制板元素
     paddleElement = document.getElementById('gamePaddle');
     
+    // 設定初始頁面狀態
+    document.body.classList.add('homepage');
+    
     // 設定Canvas大小
     setupCanvas();
     
@@ -138,6 +141,8 @@ function startGame() {
     // 切換畫面
     document.getElementById('homePage').style.display = 'none';
     document.getElementById('gameArea').classList.add('active');
+    document.body.classList.remove('homepage');
+    document.body.classList.add('game-active');
     
     // 重設遊戲狀態
     gameRunning = true;
@@ -157,9 +162,6 @@ function startGame() {
     initGameObjects();
     generateMeetings();
     
-    // 更新UI
-    updateUI();
-    
     // 開始遊戲迴圈
     gameLoop();
 }
@@ -168,7 +170,7 @@ function startGame() {
 function initGameObjects() {
     // 球 - 根據裝置設定不同速度
     const isMobile = window.innerWidth <= 768;
-    const ballSpeed = isMobile ? 8 : 10;
+    const ballSpeed = isMobile ? 7 : 10;
     
     ball = {
         x: gameWidth / 2,
@@ -357,8 +359,6 @@ function update() {
     // 檢查遊戲結束
     checkGameEnd();
     
-    // 更新UI
-    updateUI();
 }
 
 // 更新控制板
@@ -414,7 +414,7 @@ function updateBall() {
 // 重置球
 function resetBall() {
     const isMobile = window.innerWidth <= 768;
-    const ballSpeed = isMobile ? 8 : 10;
+    const ballSpeed = isMobile ? 7 : 10;
     
     ball.x = gameWidth / 2;
     ball.y = gameHeight - 200;
@@ -504,16 +504,7 @@ function checkGameEnd() {
     // 檢查失敗（已在球掉落時處理）
 }
 
-// 更新UI
-function updateUI() {
-    // 更新右下角統計
-    document.getElementById('freeHours').textContent = freeHours;
-    document.getElementById('destroyedMeetings').textContent = destroyedMeetings;
-    
-    // 更新底部統計條
-    document.getElementById('bottomFreeHours').textContent = freeHours;
-    document.getElementById('bottomDestroyedMeetings').textContent = destroyedMeetings;
-}
+
 
 // 返回首頁
 function showHomePage(buttonText) {
@@ -525,6 +516,8 @@ function showHomePage(buttonText) {
     document.getElementById('gameArea').classList.remove('active');
     document.getElementById('homePage').style.display = 'block';
     document.getElementById('startBtn').textContent = buttonText;
+    document.body.classList.remove('game-active');
+    document.body.classList.add('homepage');
     document.getElementById('gameStatus').textContent = '';
 }
 

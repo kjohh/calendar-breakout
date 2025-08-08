@@ -184,21 +184,7 @@
             transform: translateY(-1px);
         }
 
-        /* 底部漸變條 */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            z-index: 10;
-        }
 
-        .bottom-bar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
 
         /* 遊戲界面 */
         .game-area {
@@ -455,23 +441,7 @@
             z-index: 10;
         }
 
-        /* 遊戲統計 */
-        .game-stats {
-            position: fixed;
-            bottom: 0;
-            right: 20px;
-            height: 60px;
-            color: white;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            z-index: 25;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-            pointer-events: none;
-        }
+
 
         /* Canvas 設置 */
         #gameCanvas {
@@ -826,30 +796,7 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* 底部統計條 */
-        .bottom-stats-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background: linear-gradient(90deg, 
-                #ff00c8 0%, 
-                #8a2be2 25%, 
-                #4169e1 50%, 
-                #8a2be2 75%, 
-                #ff00c8 100%);
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            z-index: 5;
-            opacity: 0.9;
-        }
+
 
         @media (max-width: 768px) {
             .subtitle {
@@ -911,13 +858,7 @@
                 bottom: 80px;
             }
 
-            .game-stats {
-                bottom: 0;
-                right: 10px;
-                font-size: 14px;
-                flex-direction: row;
-                gap: 20px;
-            }
+
         }
     </style>
 </head>
@@ -925,9 +866,7 @@
     <div class="dynamic-background"></div>
     <div class="background-texture"></div>
     <div class="background-overlay"></div>
-    <div class="bottom-bar">
-        <img src="./bottom-bar.jpg" alt="Bottom Bar" />
-    </div>
+
     <div class="container">
         <!-- 首頁 -->
         <div id="homePage">
@@ -991,16 +930,9 @@
             <div class="game-paddle" id="gamePaddle"></div>
 
             <!-- 遊戲統計 -->
-            <div class="game-stats">
-                <div>重回自由時數：<span id="freeHours">0</span> 小時</div>
-                <div>擊破會議數：<span id="destroyedMeetings">0</span></div>
-            </div>
 
-            <!-- 底部統計條 -->
-            <div class="bottom-stats-bar">
-                <span>重回自由時數：<span id="bottomFreeHours">0</span> 小時</span>
-                <span>擊破會議數：<span id="bottomDestroyedMeetings">0</span></span>
-            </div>
+
+
 
             <!-- 隱藏的 Canvas -->
             <canvas id="gameCanvas"></canvas>
