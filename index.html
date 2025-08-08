@@ -184,6 +184,26 @@
             transform: translateY(-1px);
         }
 
+        /* 底部漸變條 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 10;
+        }
+
+        .bottom-bar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 遊戲進行時隱藏底部bar */
+        .game-active .bottom-bar {
+            display: none;
+        }
 
 
         /* 遊戲界面 */
@@ -631,15 +651,15 @@
         /* 電腦版會議列表 */
         @media (min-width: 769px) {
             .destroyed-meetings-section {
-                max-height: none;
-                overflow-y: visible;
+                max-height: 50vh;
+                overflow-y: auto;
             }
         }
 
         /* 手機版會議列表 */
         @media (max-width: 768px) {
             .destroyed-meetings-section {
-                max-height: 40vh;
+                max-height: 55vh;
                 overflow-y: auto;
             }
         }
@@ -866,6 +886,9 @@
     <div class="dynamic-background"></div>
     <div class="background-texture"></div>
     <div class="background-overlay"></div>
+    <div class="bottom-bar">
+        <img src="./bottom-bar.jpg" alt="Bottom Bar" />
+    </div>
 
     <div class="container">
         <!-- 首頁 -->
@@ -953,19 +976,15 @@
                         <span class="game-over-stat-label">擊破會議數</span>
                         <span class="game-over-stat-value" id="finalDestroyedMeetings">0</span>
                     </div>
-                    <div class="game-over-stat">
-                        <span class="game-over-stat-label">遊戲時間</span>
-                        <span class="game-over-stat-value" id="finalGameTime">0 秒</span>
-                    </div>
+
                 </div>
+                <div class="humorous-summary" id="humorousSummary"></div>
                 <div class="destroyed-meetings-section" id="destroyedMeetingsSection">
                     <div class="destroyed-meetings-title">成功擊破的煩人會議：</div>
                     <div class="destroyed-meetings-list" id="destroyedMeetingsList"></div>
-                    <div class="humorous-summary" id="humorousSummary"></div>
                 </div>
                 <div class="game-over-buttons">
                     <button class="game-over-button" id="playAgainBtn">再玩一次</button>
-                    <button class="game-over-button secondary" id="goHomeBtn">回到首頁</button>
                     <button class="game-over-button secondary" id="shareBtn">分享給朋友</button>
                 </div>
             </div>

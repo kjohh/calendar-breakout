@@ -407,7 +407,8 @@ function updateBall() {
     if (ball.y >= gameHeight + ball.radius) {
         gameOver = true;
         gameRunning = false;
-        showGameOverModal(false);
+        console.log('遊戲失敗，顯示失敗modal');
+        setTimeout(() => showGameOverModal(false), 100);
     }
 }
 
@@ -497,7 +498,8 @@ function checkGameEnd() {
     if (activeMeetings.length === 0) {
         gameWon = true;
         gameRunning = false;
-        showGameOverModal(true);
+        console.log('遊戲勝利，顯示勝利modal');
+        setTimeout(() => showGameOverModal(true), 100);
         return;
     }
     
@@ -662,13 +664,15 @@ function drawParticles() {
 
 // 顯示遊戲結束 Modal
 function showGameOverModal(isWin) {
+    console.log('showGameOverModal 被調用，isWin:', isWin);
     const overlay = document.getElementById('gameOverOverlay');
     const title = document.getElementById('gameOverTitle');
     const finalFreeHours = document.getElementById('finalFreeHours');
     const finalDestroyedMeetings = document.getElementById('finalDestroyedMeetings');
-    const finalGameTime = document.getElementById('finalGameTime');
     const destroyedMeetingsListEl = document.getElementById('destroyedMeetingsList');
     const humorousSummary = document.getElementById('humorousSummary');
+    
+    console.log('找到的元素:', {overlay, title, finalFreeHours, finalDestroyedMeetings, destroyedMeetingsListEl, humorousSummary});
     
     // 計算遊戲時間
     const gameTime = Math.floor((Date.now() - gameStartTime) / 1000);
@@ -685,7 +689,6 @@ function showGameOverModal(isWin) {
     // 更新統計
     finalFreeHours.textContent = `${freeHours} 小時`;
     finalDestroyedMeetings.textContent = destroyedMeetings;
-    finalGameTime.textContent = `${gameTime} 秒`;
     
     // 顯示被摧毀的會議列表
     if (destroyedMeetingsList.length > 0) {
@@ -709,7 +712,9 @@ function showGameOverModal(isWin) {
     }
     
     // 顯示 Modal
+    console.log('準備顯示modal，overlay元素:', overlay);
     overlay.classList.add('show');
+    console.log('modal已添加show class');
 }
 
 // 隱藏遊戲結束 Modal
@@ -775,11 +780,6 @@ function setupGameOverEvents() {
         startGame();
     });
     
-    // 回到首頁
-    document.getElementById('goHomeBtn').addEventListener('click', () => {
-        hideGameOverModal();
-        showHomePage('Start Game');
-    });
     
     // 分享按鈕
     document.getElementById('shareBtn').addEventListener('click', () => {
