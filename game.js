@@ -687,14 +687,20 @@ function showGameOverModal(isWin) {
     }
     
     // 更新統計
-    finalFreeHours.textContent = `${freeHours} 小時`;
-    finalDestroyedMeetings.textContent = destroyedMeetings;
+    if (finalFreeHours) {
+        finalFreeHours.textContent = `${freeHours} 小時`;
+    }
+    if (finalDestroyedMeetings) {
+        finalDestroyedMeetings.textContent = destroyedMeetings;
+    }
     
     // 顯示被摧毀的會議列表
     if (destroyedMeetingsList.length > 0) {
-        destroyedMeetingsListEl.innerHTML = destroyedMeetingsList.map(meeting => 
-            `<div class="meeting-item">• ${meeting}</div>`
-        ).join('');
+        if (destroyedMeetingsListEl) {
+            destroyedMeetingsListEl.innerHTML = destroyedMeetingsList.map(meeting => 
+                `<div class="meeting-item">• ${meeting}</div>`
+            ).join('');
+        }
         
         // 生成幽默總結
         const summaries = [
@@ -705,16 +711,26 @@ function showGameOverModal(isWin) {
             `你就是職場英雄！成功摧毀了 ${destroyedMeetings} 個浪費時間的會議！`,
             `太神了！你用 ${gameTime} 秒的時間，換回了 ${freeHours} 小時的自由！這筆交易太划算了！`
         ];
-        humorousSummary.textContent = summaries[Math.floor(Math.random() * summaries.length)];
+        if (humorousSummary) {
+            humorousSummary.textContent = summaries[Math.floor(Math.random() * summaries.length)];
+        }
     } else {
-        destroyedMeetingsListEl.innerHTML = '<div class="meeting-item">還沒有擊破任何會議...</div>';
-        humorousSummary.textContent = '下次加油！讓我們一起解放更多被會議綁架的時間！';
+        if (destroyedMeetingsListEl) {
+            destroyedMeetingsListEl.innerHTML = '<div class="meeting-item">還沒有擊破任何會議...</div>';
+        }
+        if (humorousSummary) {
+            humorousSummary.textContent = '下次加油！讓我們一起解放更多被會議綁架的時間！';
+        }
     }
     
     // 顯示 Modal
     console.log('準備顯示modal，overlay元素:', overlay);
-    overlay.classList.add('show');
-    console.log('modal已添加show class');
+    if (overlay) {
+        overlay.classList.add('show');
+        console.log('modal已添加show class');
+    } else {
+        console.error('找不到 gameOverOverlay 元素，無法顯示modal');
+    }
 }
 
 // 隱藏遊戲結束 Modal
@@ -775,19 +791,29 @@ function hideShareSheet() {
 // 設置事件監聽器
 function setupGameOverEvents() {
     // 再玩一次
-    document.getElementById('playAgainBtn').addEventListener('click', () => {
-        hideGameOverModal();
-        startGame();
-    });
-    
+    const playAgainBtn = document.getElementById('playAgainBtn');
+    if (playAgainBtn) {
+        playAgainBtn.addEventListener('click', () => {
+            hideGameOverModal();
+            startGame();
+        });
+    } else {
+        console.error('找不到 playAgainBtn 元素');
+    }
     
     // 分享按鈕
-    document.getElementById('shareBtn').addEventListener('click', () => {
-        showShareSheet();
-    });
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', () => {
+            showShareSheet();
+        });
+    } else {
+        console.error('找不到 shareBtn 元素');
+    }
     
     // 分享選項
-    document.querySelectorAll('.share-option').forEach(option => {
+    const shareOptions = document.querySelectorAll('.share-option');
+    shareOptions.forEach(option => {
         option.addEventListener('click', () => {
             const platform = option.dataset.platform;
             shareGame(platform);
@@ -795,9 +821,14 @@ function setupGameOverEvents() {
     });
     
     // 關閉分享面板
-    document.getElementById('shareSheetClose').addEventListener('click', () => {
-        hideShareSheet();
-    });
+    const shareSheetClose = document.getElementById('shareSheetClose');
+    if (shareSheetClose) {
+        shareSheetClose.addEventListener('click', () => {
+            hideShareSheet();
+        });
+    } else {
+        console.error('找不到 shareSheetClose 元素');
+    }
     
     // 移除點擊背景關閉 Modal 功能
 }
